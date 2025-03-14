@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(process.cwd(), "public")));
 
+app.set("views", path.join(process.cwd(), "src", "server", "views"));
+app.set("view engine", "ejs");
+
 app.use("/", rootRouter);
 
 app.use((_request, _response, next) => {

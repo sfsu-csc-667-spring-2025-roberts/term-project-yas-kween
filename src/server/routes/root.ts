@@ -4,9 +4,10 @@ import { Request, Response } from "express";
 const router = express.Router();
 
 router.get("/", (_request: Request, response: Response) => {
-  response.send(
-    `Hello, World from inside a route again! (at ${response.locals.currentTime})`
-  );
+  const title = "Jrob's site";
+  const name = "John";
+
+  response.render("root", { title, name });
 });
 
 export default router;
