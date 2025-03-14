@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "start": "NODE_ENV=production ts-node src/server/index.ts",
-    "start:dev": "nodemon --exec ts-node src/server/index.ts"
+    "start:dev": "nodemon --exec ts-node src/server/index.ts",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +18,10 @@
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.13.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "nodemon": "^3.1.9",
+    "prettier": "^3.5.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
