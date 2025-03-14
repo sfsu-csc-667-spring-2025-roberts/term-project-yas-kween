@@ -4,7 +4,9 @@ import { Request, Response } from "express";
 const router = express.Router();
 
 router.get("/", (_request: Request, response: Response) => {
-  response.send("Hello, World from inside a route again!");
+  response.send(
+    `Hello, World from inside a route again! (at ${response.locals.currentTime})`
+  );
 });
 
 export default router;

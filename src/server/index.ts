@@ -3,13 +3,16 @@ import express from "express";
 import httpErrors from "http-errors";
 
 import rootRouter from "./routes/root";
+import { timeMiddleware } from "./middleware/time";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(timeMiddleware);
+
 app.use("/", rootRouter);
 
-app.use((_, __, next) => {
+app.use((_request, _response, next) => {
   next(httpErrors(404));
 });
 
