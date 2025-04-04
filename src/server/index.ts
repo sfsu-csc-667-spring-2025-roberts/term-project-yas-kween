@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import rootRouter from "./routes/root";
+import testRouter from "./routes/test";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
 app.use("/", rootRouter);
+app.use("/test", testRouter);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
