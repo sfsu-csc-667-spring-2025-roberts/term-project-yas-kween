@@ -5,6 +5,9 @@ import httpErrors from "http-errors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import rootRouter from "./routes/root";
 
 const app = express();
