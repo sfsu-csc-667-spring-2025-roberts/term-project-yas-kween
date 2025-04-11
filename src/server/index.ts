@@ -32,6 +32,7 @@ app.set("view engine", "ejs");
 
 app.use("/", routes.root);
 app.use("/test", routes.test);
+app.use("/auth", routes.auth);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
