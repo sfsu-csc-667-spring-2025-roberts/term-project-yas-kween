@@ -8,11 +8,13 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
-import rootRouter from "./routes/root";
-import testRouter from "./routes/test";
+import * as config from "./config";
+import * as routes from "./routes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+config.liveReload(app);
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -28,8 +30,8 @@ app.use(express.static(path.join(process.cwd(), "public")));
 app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
-app.use("/", rootRouter);
-app.use("/test", testRouter);
+app.use("/", routes.root);
+app.use("/test", routes.test);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
