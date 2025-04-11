@@ -10,11 +10,13 @@ dotenv.config();
 
 import * as config from "./config";
 import * as routes from "./routes";
+import * as middleware from "./middleware";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 config.liveReload(app);
+config.session(app);
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -33,6 +35,7 @@ app.set("view engine", "ejs");
 app.use("/", routes.root);
 app.use("/test", routes.test);
 app.use("/auth", routes.auth);
+app.use("/lobby", middleware.authMiddleware, routes.lobby);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
