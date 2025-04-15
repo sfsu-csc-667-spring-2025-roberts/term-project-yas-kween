@@ -21,6 +21,9 @@
     },
     "games": {
       "source": "./src/client/games/index.ts"
+    },
+    "socket": {
+      "source": "./src/client/socket/index.ts"
     }
   },
   "keywords": [],
@@ -49,6 +52,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@types/socket.io-client": "^1.4.36",
     "bcrypt": "^5.1.1",
     "connect-pg-simple": "^10.0.0",
     "cookie-parser": "^1.4.7",
@@ -60,6 +64,8 @@
     "morgan": "^1.10.0",
     "node-pg-migrate": "^7.9.1",
     "pg": "^8.14.1",
-    "pg-promise": "^11.13.0"
+    "pg-promise": "^11.13.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   }
 }

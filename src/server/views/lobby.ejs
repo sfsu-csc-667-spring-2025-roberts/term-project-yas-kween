@@ -2,14 +2,44 @@
   <head>
     <meta charset="UTF-8" />
     <title>Skip-bo | Lobby</title>
+    <%- include('shared/head') %>
   </head>
   <body>
     <%- include('shared/menu') %>
     <h1>Welcome <%= user.email %></h1>
 
+    <a id="test-click-me" href="#">Click me</a>
+    <script>
+      document
+        .getElementById("test-click-me")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+
+          fetch("/test/socket", { credentials: "include" })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error(
+                "There was a problem with the fetch operation:",
+                error
+              );
+            });
+        });
+    </script>
+
     <ul>
       <li>id: <%= user.id %></li>
-      <li>gravatar: <%= user.gravatar %></li>
+      <li>
+        gravatar: <%= user.gravatar %>
+        <img src="https://gravatar.com/avatar/<%= user.gravatar %>" />
+      </li>
     </ul>
   </body>
 </html>

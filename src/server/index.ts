@@ -1,9 +1,11 @@
 import * as path from "path";
+import * as http from "http";
 
 import express from "express";
 import httpErrors from "http-errors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import { Server } from "socket.io";
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,10 +15,14 @@ import * as routes from "./routes";
 import * as middleware from "./middleware";
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
 const PORT = process.env.PORT || 3000;
 
 config.liveReload(app);
 config.session(app);
+config.sockets(io, app);
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -41,6 +47,6 @@ app.use((_request, _response, next) => {
   next(httpErrors(404));
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
