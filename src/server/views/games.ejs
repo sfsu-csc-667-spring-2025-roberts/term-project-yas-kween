@@ -1,0 +1,22 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Skip-bo | Lobby</title>
+    <%- include('shared/head') %>
+  </head>
+  <body>
+    <div id="container">
+      <%- include('shared/menu') %>
+      <h1>
+        <img
+          class="gravatar"
+          src="https://gravatar.com/avatar/<%= user.gravatar %>"
+        />
+        Welcome <%= user.email %> (<%= user.id %>)
+      </h1>
+
+      Game page <%= gameId %>
+    </div>
+    <%- include('shared/templates') %>
+  </body>
+</html>
