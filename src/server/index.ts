@@ -20,6 +20,7 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 
+app.use(middleware.room);
 config.liveReload(app);
 config.session(app);
 config.sockets(io, app);
@@ -41,8 +42,8 @@ app.set("view engine", "ejs");
 app.use("/", routes.root);
 app.use("/test", routes.test);
 app.use("/auth", routes.auth);
-app.use("/chat", middleware.authMiddleware, routes.chat);
-app.use("/lobby", middleware.authMiddleware, routes.lobby);
+app.use("/chat", middleware.auth, routes.chat);
+app.use("/lobby", middleware.auth, routes.lobby);
 
 app.use((_request, _response, next) => {
   next(httpErrors(404));
