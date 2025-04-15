@@ -41,6 +41,7 @@ app.set("view engine", "ejs");
 app.use("/", routes.root);
 app.use("/test", routes.test);
 app.use("/auth", routes.auth);
+app.use("/chat", middleware.authMiddleware, routes.chat);
 app.use("/lobby", middleware.authMiddleware, routes.lobby);
 
 app.use((_request, _response, next) => {

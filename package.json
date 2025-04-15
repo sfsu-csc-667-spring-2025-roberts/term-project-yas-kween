@@ -4,7 +4,7 @@
   "scripts": {
     "start": "NODE_ENV=production ts-node src/server/index.ts",
     "start:dev": "concurrently --names backend,frontend -c blue,green \"npm run backend:dev\" \"npm run frontend:dev\"",
-    "backend:dev": "nodemon --exec ts-node src/server/index.ts --ext ts,ejs",
+    "backend:dev": "nodemon --exec ts-node src/server/index.ts --ext ts,ejs,css",
     "frontend:dev": "parcel watch --dist-dir ./public/js",
     "frontend": "parcel build",
     "prepare": "husky",

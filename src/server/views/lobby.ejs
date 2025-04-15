@@ -5,41 +5,32 @@
     <%- include('shared/head') %>
   </head>
   <body>
-    <%- include('shared/menu') %>
-    <h1>Welcome <%= user.email %></h1>
+    <div id="container">
+      <%- include('shared/menu') %>
+      <h1>
+        <img
+          class="gravatar"
+          src="https://gravatar.com/avatar/<%= user.gravatar %>"
+        />
+        Welcome <%= user.email %> (<%= user.id %>)
+      </h1>
+      <div id="lobby-container">
+        <section>Games go here</section>
 
-    <a id="test-click-me" href="#">Click me</a>
-    <script>
-      document
-        .getElementById("test-click-me")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-
-          fetch("/test/socket", { credentials: "include" })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response.json();
-            })
-            .then((data) => {
-              console.log(data);
-            })
-            .catch((error) => {
-              console.error(
-                "There was a problem with the fetch operation:",
-                error
-              );
-            });
-        });
-    </script>
-
-    <ul>
-      <li>id: <%= user.id %></li>
-      <li>
-        gravatar: <%= user.gravatar %>
-        <img src="https://gravatar.com/avatar/<%= user.gravatar %>" />
-      </li>
-    </ul>
+        <section id="chat">
+          <div></div>
+          <form class="chat-form">
+            <input
+              type="text"
+              id="message"
+              name="message"
+              placeholder="Type your message here..."
+            />
+            <button type="submit">Send</button>
+          </form>
+        </section>
+      </div>
+    </div>
+    <%- include('shared/templates') %>
   </body>
 </html>
