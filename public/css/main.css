@@ -1,49 +1,91 @@
+/* * {
+  border: 1px solid red;
+} */
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #container {
-  width: 800px;
+  width: 1024px;
   margin: 0 auto;
-  height: 100%;
+}
+
+menu {
+  padding-top: 5px;
+  padding-bottom: 10px;
 }
 
 menu ul {
+  list-style: none;
   display: flex;
-  flex-direction: row;
-  list-style-type: none;
 }
 
 menu ul li {
-  margin-right: 10px;
+  margin: 0 10px 0 0;
 }
 
-img.gravatar {
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
+menu ul li:last-of-type {
+  margin-right: 0;
 }
 
-#lobby-container {
+h1 img {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+#content {
+  width: 100%;
   display: flex;
 }
 
-#lobby-container section {
+#content section {
   width: 50%;
+  flex: 1;
 }
 
-section {
-  /* FIX THIS JOHN */
-  height: 300px;
+section#game-listing {
+  flex-grow: 2;
 }
 
-section#chat {
+section#chat-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
 }
 
-section#chat div {
-  overflow-y: hidden;
-  flex-grow: 1;
+#chat-container div#messages {
+  overflow-y: auto;
+  height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Chat Styles */
+#chat-container div div.message {
+  padding: 5px;
+  font-size: 12px;
+  display: flex;
+}
+
+#chat-container div div.message img.avatar {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+}
+
+#chat-container div div.message .message-wrapper {
+  margin-left: 5px;
+  display: flex;
+  flex-direction: column;
+  color: #333;
+  border: none;
+}
+
+#chat-container div div.message .message-wrapper .message-timestamp {
+  padding-top: 3px;
+  font-size: 10px;
+  color: #999;
 }

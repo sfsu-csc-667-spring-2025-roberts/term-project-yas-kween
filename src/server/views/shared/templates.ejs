@@ -1,9 +1,11 @@
-<input type="hidden" id="room-id" value="<%= roomId %>" />
+<input type="hidden" name="room-id" id="room-id" value="<%= roomId %>" />
 
 <template id="chat-message-template">
-  <div class="chat-message">
-    <img class="gravatar" src="#" alt="#" />
-    <span class="timestamp"></span>
-    <span class="message"></span>
+  <div class="message">
+    <img class="avatar" />
+    <div class="message-wrapper">
+      <span class="message-content"></span>
+      <span class="message-timestamp"></span>
+    </div>
   </div>
 </template>

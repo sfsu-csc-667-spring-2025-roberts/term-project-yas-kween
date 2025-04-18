@@ -1,6 +1,11 @@
+export type User = {
+  id: string;
+  email: string;
+  gravatar: string;
+};
+
 export type ChatMessage = {
   message: string;
-  sender: string;
-  gravatar: string;
-  timestamp: number;
+  sender: User;
+  timestamp: Date;
 };

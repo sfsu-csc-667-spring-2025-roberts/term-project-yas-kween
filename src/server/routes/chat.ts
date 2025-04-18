@@ -5,22 +5,31 @@ import { ChatMessage } from "global";
 const router = express.Router();
 
 router.post("/:roomId", (request: Request, response: Response) => {
+  const { roomId } = request.params;
   const { message } = request.body;
-  const id = request.params.roomId;
+  // @ts-ignore
+  const { id, email, gravatar } = request.session.user;
   const io = request.app.get("io");
 
-  const broadcastMessage: ChatMessage = {
+  if (!io) {
+    response.status(500).send("Socket.io not initialized");
+    return;
+  }
+
+  if (!message) {
+    response.status(400).send("Message is required");
+    return;
+  }
+
+  io.emit(`chat:message:${roomId}`, {
     message,
-    // @ts-ignore
-    sender: request.session.user.email,
-    // @ts-ignore
-    gravatar: request.session.user.gravatar,
-    timestamp: Date.now(),
-  };
-
-  console.log({ broadcastMessage });
-
-  io.emit(`chat-message:${id}`, broadcastMessage);
+    sender: {
+      id,
+      email,
+      gravatar,
+    },
+    timestamp: new Date(),
+  });
 
   response.status(200).send();
 });

@@ -35,15 +35,27 @@ router.get("/promise_version", (request: Request, response: Response) => {
     });
 });
 
-router.get("/socket", (request: Request, response: Response) => {
-  const io: Server = request.app.get("io");
-
+router.post("/socket-test", (request: Request, response: Response) => {
+  const io = request.app.get("io");
   // @ts-ignore
-  io.emit("test", { user: request.session.user });
-  // @ts-ignore
-  io.to(request.session.user.id).emit("test", { secret: "hi" });
+  const { id } = request.session.user;
 
-  response.json({ message: "Socket event emitted" });
+  if (io) {
+    console.log("io not null");
+
+    io.emit("test-event", {
+      message: "Hello from the server!",
+      timestamp: new Date(),
+    });
+    io.to(id).emit("test-event", {
+      message: `Secret message for user ${id}`,
+      timestamp: new Date(),
+    });
+
+    response.status(200).send();
+  } else {
+    response.status(500).send();
+  }
 });
 
 export default router;

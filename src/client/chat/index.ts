@@ -1,54 +1,61 @@
-import type { ChatMessage } from "global";
-import { socket } from "../socket";
+import { ChatMessage } from "global";
+import { socket } from "../sockets";
 
-const roomId = document.querySelector<HTMLInputElement>("input#room-id")?.value;
-const parent = document.querySelector("section#chat div");
-const messageInput = document.querySelector<HTMLInputElement>(
-  "section#chat form input[name=message]",
+const roomId = document.querySelector<HTMLInputElement>("#room-id")?.value;
+
+const chatContainer = document.querySelector<HTMLDivElement>(
+  "#chat-container div",
 );
 
-document
-  .querySelector("section#chat form.chat-form")
-  ?.addEventListener("submit", (event) => {
-    event.preventDefault();
+socket.on("chat:message:0", ({ message, sender, timestamp }: ChatMessage) => {
+  const container = document
+    .querySelector<HTMLTemplateElement>("#chat-message-template")
+    ?.content.cloneNode(true) as HTMLDivElement;
 
-    const message = messageInput?.value;
-    messageInput!.value = "";
+  const img = container.querySelector<HTMLImageElement>("img")!;
+  img.src = `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
+  img.alt = `Gravatar for ${sender.email}`;
 
-    if (message?.trim().length === 0) {
-      return;
-    }
+  container.querySelector<HTMLSpanElement>(".message-content")!.innerText =
+    message;
+  container.querySelector<HTMLSpanElement>(".message-timestamp")!.innerText =
+    new Date(timestamp).toLocaleTimeString();
 
-    fetch(`/chat/${roomId}`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "same-origin",
-      body: JSON.stringify({ message }),
-    });
+  chatContainer!.appendChild(container);
+
+  chatContainer?.scrollTo({
+    top: chatContainer.scrollHeight,
+    behavior: "smooth",
   });
+});
 
-socket.on(
-  `chat-message:${roomId}`,
-  ({ message, sender, gravatar, timestamp }: ChatMessage) => {
-    const container = document
-      .querySelector<HTMLTemplateElement>("template#chat-message-template")
-      ?.content.cloneNode(true) as HTMLDivElement;
-
-    const img = container.querySelector<HTMLImageElement>("img");
-    img!.src = `https://www.gravatar.com/avatar/${gravatar}`;
-    img!.alt = `${sender}'s avatar`;
-
-    const messageElement =
-      container.querySelector<HTMLSpanElement>("span.message");
-    messageElement!.innerText = message;
-
-    const timestampElement =
-      container.querySelector<HTMLSpanElement>("span.timestamp");
-    timestampElement!.innerText = new Date(timestamp).toLocaleString();
-
-    parent?.appendChild(container);
-    parent?.scrollTo({ top: parent.scrollHeight, behavior: "smooth" });
-  },
+const chatForm = document.querySelector<HTMLFormElement>(
+  "#chat-container form",
 );
+
+const chatInput = document.querySelector<HTMLInputElement>(
+  "#chat-container input",
+);
+
+chatForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const message = chatInput?.value;
+  if (!message) {
+    return;
+  }
+
+  chatInput.value = "";
+
+  fetch(`/chat/${roomId}`, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message,
+    }),
+  }).catch((error) => {
+    console.error("Error sending message:", error);
+  });
+});

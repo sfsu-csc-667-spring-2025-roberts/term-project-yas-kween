@@ -9,24 +9,22 @@
       <%- include('shared/menu') %>
       <h1>
         <img
+          src="https://gravatar.com/avatar/<%= user.gravatar %>?d=identicon"
+          alt="Gravatar"
           class="gravatar"
-          src="https://gravatar.com/avatar/<%= user.gravatar %>"
         />
         Welcome <%= user.email %> (<%= user.id %>)
       </h1>
-      <div id="lobby-container">
-        <section>Games go here</section>
 
-        <section id="chat">
-          <div></div>
-          <form class="chat-form">
-            <input
-              type="text"
-              id="message"
-              name="message"
-              placeholder="Type your message here..."
-            />
-            <button type="submit">Send</button>
+      <div id="content">
+        <section id="game-listing">
+          This is the game listing section TODO
+        </section>
+        <section id="chat-container">
+          <div id="messages"></div>
+          <form>
+            <input type="text" name="message" id="message-input" />
+            <button type="submit" id="send-button">Send</button>
           </form>
         </section>
       </div>

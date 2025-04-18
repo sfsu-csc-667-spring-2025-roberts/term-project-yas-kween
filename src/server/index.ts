@@ -22,8 +22,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(middleware.room);
 config.liveReload(app);
-config.session(app);
-config.sockets(io, app);
+config.socket(io, app, config.session(app));
 
 app.use(morgan("dev"));
 app.use(cookieParser());
@@ -35,6 +34,7 @@ app.use(
 );
 
 app.use(express.static(path.join(process.cwd(), "public")));
+app.use(middleware.room);
 
 app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
