@@ -1,47 +1,60 @@
-/* src/client/css/main.css */
+/* * {
+  border: 1px solid red;
+} */
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
 #container {
   width: 1024px;
   margin: 0 auto;
 }
+
 menu {
   padding-top: 5px;
   padding-bottom: 10px;
 }
+
 menu ul {
   list-style: none;
   display: flex;
 }
+
 menu ul li {
   margin: 0 10px 0 0;
 }
+
 menu ul li:last-of-type {
   margin-right: 0;
 }
+
 h1 img {
   width: 30px;
   height: 30px;
   border-radius: 15px;
 }
+
 #content {
   width: 100%;
   display: flex;
 }
+
 #content section {
   width: 50%;
   flex: 1;
 }
+
 section#game-listing {
   flex-grow: 2;
 }
+
 section#chat-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
 }
+
 #chat-container div#messages {
   overflow-y: auto;
   height: 400px;
@@ -49,16 +62,20 @@ section#chat-container {
   border-radius: 5px;
   margin-bottom: 10px;
 }
+
+/* Chat Styles */
 #chat-container div div.message {
   padding: 5px;
   font-size: 12px;
   display: flex;
 }
+
 #chat-container div div.message img.avatar {
   height: 20px;
   width: 20px;
   border-radius: 10px;
 }
+
 #chat-container div div.message .message-wrapper {
   margin-left: 5px;
   display: flex;
@@ -66,6 +83,7 @@ section#chat-container {
   color: #333;
   border: none;
 }
+
 #chat-container div div.message .message-wrapper .message-timestamp {
   padding-top: 3px;
   font-size: 10px;

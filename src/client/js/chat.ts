@@ -1,5 +1,5 @@
 import { ChatMessage } from "global";
-import { socket } from "../sockets";
+import { socket } from "./sockets";
 
 const roomId = document.querySelector<HTMLInputElement>("#room-id")?.value;
 
