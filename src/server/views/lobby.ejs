@@ -4,31 +4,44 @@
     <title>Skip-bo | Lobby</title>
     <%- include('shared/head') %>
   </head>
-  <body>
+  <body id="lobby">
     <div id="container">
       <%- include('shared/menu') %>
-      <h1>
-        <img
-          src="https://gravatar.com/avatar/<%= user.gravatar %>?d=identicon"
-          alt="Gravatar"
-          class="gravatar"
-        />
-        Welcome <%= user.email %> (<%= user.id %>)
-      </h1>
 
       <div id="content">
-        <section id="game-listing">
-          This is the game listing section TODO
+        <section id="games-listing">
+          <h2>My games</h2>
+
+          <ul id="my-games">
+            <li>
+              <span class="status waiting">status</span>
+              <span class="game-name">Game Name</span>
+              <span class="game-players">Players</span>
+              <a href="/games/42" class="button" target="_blank">Join</a>
+            </li>
+            <li>
+              <span class="status playing">status</span>
+              <span class="game-name">Game Name</span>
+              <span class="game-players">Players</span>
+              <a href="/games/42" class="button" target="_blank">Join</a>
+            </li>
+          </ul>
+
+          <h2>Join a new game</h2>
+
+          <ul id="available-games">
+            <li>
+              <span class="status waiting">status</span>
+              <span class="game-name">Game Name</span>
+              <span class="game-players">Players</span>
+              <a href="/games/42" class="button" target="_blank">Join</a>
+            </li>
+          </ul>
         </section>
-        <section id="chat-container">
-          <div id="messages"></div>
-          <form>
-            <input type="text" name="message" id="message-input" />
-            <button type="submit" id="send-button">Send</button>
-          </form>
-        </section>
-      </div>
+
+        <%- include('shared/chat') %>
     </div>
+
     <%- include('shared/templates') %>
   </body>
 </html>

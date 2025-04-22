@@ -4,10 +4,7 @@ import { Request, Response } from "express";
 const router = express.Router();
 
 router.get("/", (_request: Request, response: Response) => {
-  const title = "Jrob's site";
-  const name = "John";
-
-  response.render("root", { title, name });
+  response.render("root");
 });
 
 export default router;

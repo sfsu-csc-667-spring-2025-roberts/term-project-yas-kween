@@ -1,0 +1,23 @@
+<form action="/auth/login" method="post" class="auth-form">
+  <% if (locals.error && error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+
+  <div>
+    <label for="username">Email</label>
+    <input type="email" name="email" id="email" required placeholder="Email address"
+      <% if(locals.email && email) { %>
+        value="<%= email %>"
+      <% } %>
+    />
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required />
+  </div>
+
+  <button type="submit">Sign In</button>
+
+  <a href="/auth/register">Don't have an account? Register</a>
+</form>

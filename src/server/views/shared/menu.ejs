@@ -1,6 +1,11 @@
 <menu>
-  <ul class="menu">
-    <li><a href="/lobby">Lobby</a></li>
-    <li><a href="/auth/logout">Logout</a></li>
-  </ul>
+  <a href="/lobby">Lobby</a>
+  <div class="menu">
+    <a href="/auth/logout">Logout</a>
+    <img
+      src="https://gravatar.com/avatar/<%= user.gravatar %>?d=identicon"
+      alt="User Avatar"
+      class="gravatar"
+    />
+  </div>
 </menu>

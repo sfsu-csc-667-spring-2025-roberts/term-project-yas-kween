@@ -1,40 +1,36 @@
 import { ChatMessage } from "global";
 import { socket } from "./sockets";
+import { cloneTemplate, getRoomId } from "./utils";
 
-const roomId = document.querySelector<HTMLInputElement>("#room-id")?.value;
+const messageContainer =
+  document.querySelector<HTMLDivElement>("#chat #messages");
 
-const chatContainer = document.querySelector<HTMLDivElement>(
-  "#chat-container div",
-);
+const chatForm = document.querySelector<HTMLFormElement>("#chat form");
+const chatInput = document.querySelector<HTMLInputElement>("#chat input");
 
-socket.on("chat:message:0", ({ message, sender, timestamp }: ChatMessage) => {
-  const container = document
-    .querySelector<HTMLTemplateElement>("#chat-message-template")
-    ?.content.cloneNode(true) as HTMLDivElement;
+socket.on(
+  `chat:message:${getRoomId()}`,
+  ({ message, sender, timestamp }: ChatMessage) => {
+    const container = cloneTemplate<HTMLDivElement>("#chat-message-template");
 
-  const img = container.querySelector<HTMLImageElement>("img")!;
-  img.src = `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
-  img.alt = `Gravatar for ${sender.email}`;
+    const img = container.querySelector<HTMLImageElement>("img")!;
+    img.src = `https://gravatar.com/avatar/${sender.gravatar}?d=identicon`;
+    img.alt = `Gravatar for ${sender.email}`;
 
-  container.querySelector<HTMLSpanElement>(".message-content")!.innerText =
-    message;
-  container.querySelector<HTMLSpanElement>(".message-timestamp")!.innerText =
-    new Date(timestamp).toLocaleTimeString();
+    container.querySelector<HTMLSpanElement>(
+      "div span:first-of-type",
+    )!.innerText = message;
+    container.querySelector<HTMLSpanElement>(
+      "div span:last-of-type",
+    )!.innerText = new Date(timestamp).toLocaleTimeString();
 
-  chatContainer!.appendChild(container);
+    messageContainer!.appendChild(container);
 
-  chatContainer?.scrollTo({
-    top: chatContainer.scrollHeight,
-    behavior: "smooth",
-  });
-});
-
-const chatForm = document.querySelector<HTMLFormElement>(
-  "#chat-container form",
-);
-
-const chatInput = document.querySelector<HTMLInputElement>(
-  "#chat-container input",
+    messageContainer?.scrollTo({
+      top: messageContainer.scrollHeight,
+      behavior: "smooth",
+    });
+  },
 );
 
 chatForm?.addEventListener("submit", (event) => {
@@ -47,7 +43,7 @@ chatForm?.addEventListener("submit", (event) => {
 
   chatInput.value = "";
 
-  fetch(`/chat/${roomId}`, {
+  fetch(`/chat/${getRoomId()}`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

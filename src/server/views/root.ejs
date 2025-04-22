@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title><%= title %></title>
+    <title>Play Skip-Bo</title>
+    <%- include('shared/head') %>
   </head>
-  <body>
-    <div class="container">
-      <h1><%= title %></h1>
-      <p>Welcome to the site, <%= name %>, check out this list:</p>
-      <ul>
-        <% for(let i = 0; i < 3; i++) { %>
-        <li>Item <%= i %></li>
-        <% } %>
-      </ul>
+  <body id="landing">
+    <div id="container">
+      <h1>Play Skip-Bo</h1>
+
+      <%- include('auth/login-form') %>
     </div>
   </body>
 </html>
