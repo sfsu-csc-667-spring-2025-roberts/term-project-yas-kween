@@ -2,7 +2,7 @@
 
 Team leads please send me a DM on Discord with a status update for the week, and please include your group number!
 
-### Agenda Week 12 (4/21, 4/24)
+### Agenda Week 13 (4/21, 4/24)
 
 - Implement game creation
   - Client: Do something (fill out a form to create a game)
