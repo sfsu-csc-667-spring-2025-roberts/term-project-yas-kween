@@ -37,7 +37,7 @@ router.post("/login", async (request: Request, response: Response) => {
   } catch (error) {
     console.error("Error logging in user:", error);
 
-    response.render("auth/login", { error: "Invalid credentials.", email });
+    response.render("root", { error: "Invalid credentials.", email });
   }
 });
 
