@@ -17,6 +17,10 @@ body#lobby ul {
   margin: 10px 0;
 }
 
+#games-listing {
+  position: relative;
+}
+
 #games-listing span.status {
   font-size: var(--font-size-xsmall);
 }
