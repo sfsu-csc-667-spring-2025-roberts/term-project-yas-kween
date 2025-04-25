@@ -14,6 +14,10 @@ closeButton?.addEventListener("click", (event) => {
   createGameContainer?.classList.remove("visible");
 });
 
-createGameContainer?.addEventListener("click", () => {
+createGameContainer?.addEventListener("click", (event) => {
+  if (createGameContainer !== event.target) {
+    return;
+  }
+
   createGameContainer?.classList.remove("visible");
 });
