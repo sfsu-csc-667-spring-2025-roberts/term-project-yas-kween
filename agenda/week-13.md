@@ -5,12 +5,12 @@ Team leads please send me a DM on Discord with a status update for the week, and
 ### Agenda Week 13 (4/21, 4/24)
 
 - Implement game creation
-  - Client: Do something (fill out a form to create a game)
-  - Server: Implement endpoint to receive that something (POST /games)
-  - Server: Do something with it (update state) (Create game instance, update database)
-  - Server: Response with a success to client (no data)
+  - ~~Client: Do something (fill out a form to create a game)~~
+  - ~~Server: Implement endpoint to receive that something (POST /games)~~
+  - ~~Server: Do something with it (update state) (Create game instance, update database)~~
   - Server: Broadcast update (Special event/message "new-game-created" { id, numberOfPlayers, ... })
   - Client: Listening for the update (socket.on("new-game-created") => Update the UI, adding a row to a "available games table", with a button for joining)
+- Implement game joining
 
 ### Agenda Week 14 ()
 
