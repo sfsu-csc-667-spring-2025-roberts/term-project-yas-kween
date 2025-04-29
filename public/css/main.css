@@ -11,6 +11,7 @@
 @import url("/css/includes/landing.css");
 @import url("/css/includes/auth.css");
 @import url("/css/includes/lobby.css");
+@import url("/css/includes/games.css");
 @import url("/css/includes/create-game-form.css");
 
 body {

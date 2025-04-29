@@ -1,6 +1,6 @@
 import { ChatMessage } from "global";
 import { socket } from "./sockets";
-import { cloneTemplate, getRoomId } from "./utils";
+import { cloneTemplate, getGameId } from "./utils";
 
 const messageContainer =
   document.querySelector<HTMLDivElement>("#chat #messages");
@@ -9,7 +9,7 @@ const chatForm = document.querySelector<HTMLFormElement>("#chat form");
 const chatInput = document.querySelector<HTMLInputElement>("#chat input");
 
 socket.on(
-  `chat:message:${getRoomId()}`,
+  `chat:message:${getGameId()}`,
   ({ message, sender, timestamp }: ChatMessage) => {
     const container = cloneTemplate<HTMLDivElement>("#chat-message-template");
 
@@ -43,7 +43,7 @@ chatForm?.addEventListener("submit", (event) => {
 
   chatInput.value = "";
 
-  fetch(`/chat/${getRoomId()}`, {
+  fetch(`/chat/${getGameId()}`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

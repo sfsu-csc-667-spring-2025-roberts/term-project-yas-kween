@@ -1,0 +1,211 @@
+:root {
+  --card-width: 60px;
+  --card-height: 90px;
+}
+
+body#games-body #container #content {
+  display: grid;
+  grid-template-columns: 4fr 2fr;
+  gap: 30px;
+}
+
+.table {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #35654d;
+  border: 5px solid #222;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Center Area */
+.center-area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.draw-pile {
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+.build-piles {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.build-pile {
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+/* Player Positions */
+.player {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.player.top {
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player.bottom {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player.left {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%) translateX(-30%);
+}
+
+.player.right {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%) translateX(30%);
+}
+
+/* Player Area Layout */
+.player-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.player.left .player-area {
+  transform: rotate(90deg);
+}
+
+.player.right .player-area {
+  transform: rotate(-90deg);
+}
+
+.stockpile {
+  width: 80px;
+  height: 120px;
+}
+
+.piles {
+  display: flex;
+  gap: 5px;
+}
+
+.discard-pile {
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+/* Card Styles */
+.card.back {
+  background: repeating-linear-gradient(
+    45deg,
+    navy,
+    navy 10px,
+    royalblue 10px,
+    royalblue 20px
+  );
+  color: white;
+  font-size: 20px;
+}
+
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+  background: white;
+  border: 2px solid gray;
+  border-radius: 12px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Card Colors based on Number */
+.number-card[data-number="1"],
+.number-card[data-number="2"],
+.number-card[data-number="3"],
+.number-card[data-number="4"] {
+  background: #4da6ff; /* Bright Blue */
+  color: white;
+}
+
+.number-card[data-number="5"],
+.number-card[data-number="6"],
+.number-card[data-number="7"],
+.number-card[data-number="8"] {
+  background: #4caf50; /* Green */
+  color: white;
+}
+
+.number-card[data-number="9"],
+.number-card[data-number="10"],
+.number-card[data-number="11"],
+.number-card[data-number="12"] {
+  background: #ff4d4d; /* Red */
+  color: white;
+}
+
+.skipbo {
+  background: linear-gradient(135deg, #ffcc00, #ff6600);
+  color: white;
+  font-size: 24px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-inner {
+  width: 90%;
+  height: 90%;
+  border: 2px solid white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* NEW: Starburst background */
+.starburst {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: repeating-conic-gradient(
+    from 0deg,
+    rgba(255, 255, 255, 0.4) 0deg 10deg,
+    transparent 10deg 20deg
+  );
+  z-index: 0;
+  transform: rotate(20deg);
+  border-radius: 50%;
+}
+
+/* Card number stays on top */
+.card-number {
+  z-index: 1;
+  font-weight: bold;
+  font-size: 24px;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+}

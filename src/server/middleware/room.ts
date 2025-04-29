@@ -1,19 +1,19 @@
 import type { Request, Response, NextFunction } from "express";
 
-const authMiddleware = (
+const getGameMiddleware = (
   request: Request,
   response: Response,
   next: NextFunction,
 ) => {
-  const { roomId } = request.params;
+  const { gameId } = request.params;
 
-  if (roomId == undefined && request.url.includes("lobby")) {
-    response.locals.roomId = 0;
-  } else if (roomId !== undefined) {
-    response.locals.roomId = roomId;
+  if (gameId == undefined || request.url.includes("lobby")) {
+    response.locals.gameId = 0;
+  } else if (gameId !== undefined) {
+    response.locals.gameId = gameId;
   }
 
   next();
 };
 
-export default authMiddleware;
+export default getGameMiddleware;
