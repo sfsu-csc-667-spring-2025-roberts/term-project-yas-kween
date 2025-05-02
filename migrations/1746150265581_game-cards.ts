@@ -1,7 +1,7 @@
 import { MigrationBuilder } from "node-pg-migrate";
 
 export async function up(pgm: MigrationBuilder): Promise<void> {
-  pgm.createTable("game_users", {
+  pgm.createTable("game_cards", {
     game_id: {
       type: "integer",
       notNull: true,
@@ -14,21 +14,23 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
       references: "users",
       onDelete: "CASCADE",
     },
-    seat: {
-      type: "serial",
-    },
-    is_current: {
-      type: "boolean",
+    card_id: {
+      type: "integer",
       notNull: true,
-      default: false,
+      references: "cards",
+      onDelete: "CASCADE",
+    },
+    card_order: {
+      type: "integer",
+      notNull: true,
+    },
+    pile: {
+      type: "integer",
+      notNull: true,
     },
   });
-
-  pgm.sql(
-    "INSERT INTO users (id, email, password) VALUES (0, 'deck@skipbo.com', '6X-@sKGi34itlT}o##E~5hRF@A7e:^Vr8*qW>7#6*&:e/ymN[{)DEw-P[Y2!=')",
-  );
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
-  pgm.dropTable("game_users");
+  pgm.dropTable("game_cards");
 }
