@@ -9,7 +9,13 @@ body#games-body #container #content {
   gap: 30px;
 }
 
+#start-game-button {
+  font-size: var(--font-size);
+  padding: 5px 10px;
+}
+
 .table {
+  visibility: hidden;
   position: relative;
   width: 100%;
   height: 100%;

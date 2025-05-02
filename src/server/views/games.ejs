@@ -3,21 +3,19 @@
     <meta charset="UTF-8" />
     <title>Skip-bo | Lobby</title>
     <%- include('shared/head') %>
+    <script src="/js/games.js" defer></script>
   </head>
   <body id="games-body">
     <%- include('shared/templates') %>
     <div id="container">
       <%- include('shared/menu') %>
-      <h1>
-        <img
-          class="gravatar"
-          src="https://gravatar.com/avatar/<%= user.gravatar %>"
-        />
-        Welcome <%= user.email %> (<%= user.id %>) (Game page <%= gameId %>)
-      </h1>
 
       <div id="content">
         <section id="game-table">
+          <% if(isHost) { %> 
+          <button id="start-game-button">Start Game</button>
+          <% } %>
+
           <div class="table">
             <!-- Top Player -->
             <div class="player top">

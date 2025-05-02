@@ -1,5 +1,10 @@
 import db from "../connection";
-import { ADD_PLAYER, CONDITIONALLY_JOIN_SQL, CREATE_SQL } from "./sql";
+import {
+  ADD_PLAYER,
+  CONDITIONALLY_JOIN_SQL,
+  CREATE_SQL,
+  IS_HOST_SQL,
+} from "./sql";
 
 const create = async (
   name: string,
@@ -33,4 +38,10 @@ const join = async (userId: number, gameId: number, password: string = "") => {
   return playerCount;
 };
 
-export default { create, join };
+const getHost = async (gameId: number) => {
+  const { user_id } = await db.one<{ user_id: number }>(IS_HOST_SQL, [gameId]);
+
+  return user_id;
+};
+
+export default { create, join, getHost };

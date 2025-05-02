@@ -45,10 +45,15 @@ router.post("/join/:gameId", async (request: Request, response: Response) => {
   }
 });
 
-router.get("/:gameId", (request: Request, response: Response) => {
-  const { gameId } = request.params;
+router.get("/:gameId", async (request: Request, response: Response) => {
+  const { gameId: paramsGameId } = request.params;
+  const gameId = parseInt(paramsGameId);
 
-  response.render("games", { gameId });
+  // @ts-ignore
+  const { id: userId } = request.session.user;
+  const hostId = await Game.getHost(gameId);
+
+  response.render("games", { gameId, isHost: hostId === userId });
 });
 
 export default router;

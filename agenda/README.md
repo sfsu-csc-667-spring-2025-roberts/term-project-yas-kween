@@ -5,7 +5,9 @@ Team leads please send me a DM on Discord with a status update for the week, and
 ### Agenda Week 14 (4/28, 5/1)
 
 - Finish game creation
-  Remaining
+  - add cards to game
+  - deal cards
+  - let players know game has started
 - Play a card
   - Client: click on a card
   - Server: POST /games/:gameId/play-card
