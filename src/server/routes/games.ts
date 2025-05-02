@@ -49,11 +49,35 @@ router.get("/:gameId", async (request: Request, response: Response) => {
   const { gameId: paramsGameId } = request.params;
   const gameId = parseInt(paramsGameId);
 
-  // @ts-ignore
-  const { id: userId } = request.session.user;
+  const { id: userId } = request.session.user!;
   const hostId = await Game.getHost(gameId);
 
   response.render("games", { gameId, isHost: hostId === userId });
+});
+
+router.post("/:gameId/start", async (request: Request, response: Response) => {
+  const { gameId: paramsGameId } = request.params;
+  const gameId = parseInt(paramsGameId);
+
+  const { id: userId } = request.session.user!;
+  const hostId = await Game.getHost(gameId);
+
+  if (hostId !== userId) {
+    response.status(200).send();
+    return;
+  }
+
+  const gameInfo = await Game.getInfo(gameId);
+  if (gameInfo.min_players < gameInfo.player_count) {
+    // TODO: Broadcast game update stating "not enough players"
+
+    response.status(200).send();
+    return;
+  }
+
+  await Game.start(gameId);
+
+  response.status(200).send();
 });
 
 export default router;
