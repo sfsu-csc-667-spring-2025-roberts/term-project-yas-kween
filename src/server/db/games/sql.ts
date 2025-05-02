@@ -71,3 +71,10 @@ export const SET_IS_CURRENT_SQL = `
 UPDATE game_users 
 SET is_current=(game_users.user_id=$(userId))
 WHERE game_id=$(gameId)`;
+
+export const GET_CARD_SQL = `
+SELECT cards.* FROM cards, game_cards 
+WHERE user_id=$(userId) AND pile=$(pile) AND game_id=$(gameId)
+ORDER BY game_cards.card_order, game_cards.card_id DESC
+LIMIT $(limit)
+`;

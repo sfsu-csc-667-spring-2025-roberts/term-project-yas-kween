@@ -77,6 +77,9 @@ router.post("/:gameId/start", async (request: Request, response: Response) => {
 
   await Game.start(gameId);
 
+  const gameState = await Game.getState(gameId);
+  console.log({ gameState: JSON.stringify(gameState, null, 2) });
+
   response.status(200).send();
 });
 

@@ -1,10 +1,11 @@
-import { DbGameUser, GameInfo, User } from "global";
+import { DbGameUser, GameInfo, PlayerInfo, User } from "global";
 import db from "../connection";
 import {
   ADD_PLAYER,
   CONDITIONALLY_JOIN_SQL,
   CREATE_SQL,
   DEAL_CARDS_SQL,
+  GET_CARD_SQL,
   GET_GAME_INFO_SQL,
   GET_PLAYERS_SQL,
   IS_HOST_SQL,
@@ -95,7 +96,6 @@ const start = async (gameId: number) => {
   await db.none(SETUP_DECK_SQL, { gameId });
 
   const players = await getPlayers(gameId);
-  console.log({ players });
 
   for (let i = 0; i < players.length; i++) {
     await dealCards(players[i].id, gameId, 20, STOCK_PILE);
@@ -105,15 +105,76 @@ const start = async (gameId: number) => {
   await setCurrentPlayer(gameId, players[0].id);
 };
 
+const getState = async (gameId: number) => {
+  const { name } = await getInfo(gameId);
+
+  const players = (await getPlayers(gameId)).map(
+    ({ id, email, gravatar, seat, is_current: isCurrent }) => ({
+      id,
+      email,
+      gravatar,
+      seat,
+      isCurrent,
+    }),
+  );
+
+  const playerInfo: Record<number, PlayerInfo> = {};
+
+  for (let i = 0; i < players.length; i++) {
+    const { id } = players[i];
+
+    try {
+      playerInfo[id] = {
+        ...players[id],
+        hand: await db.manyOrNone(GET_CARD_SQL, {
+          gameId,
+          userId: id,
+          limit: 6,
+          pile: PLAYER_HAND,
+        }),
+        stockPileTop: await db.one(GET_CARD_SQL, {
+          gameId,
+          userId: id,
+          limit: 1,
+          pile: STOCK_PILE,
+        }),
+        discardPiles: await Promise.all(
+          [DISCARD_1, DISCARD_2, DISCARD_3, DISCARD_4].map((pile) =>
+            db.any(GET_CARD_SQL, { gameId, userId: id, limit: 162, pile }),
+          ),
+        ),
+      };
+    } catch (error) {
+      console.error({ error });
+    }
+  }
+
+  return {
+    name,
+    buildPiles: await Promise.all(
+      [NORTH_PILE, EAST_PILE, SOUTH_PILE, WEST_PILE].map((pile) => {
+        return db.oneOrNone(GET_CARD_SQL, {
+          gameId,
+          pile,
+          userId: 0,
+          limit: 1,
+        });
+      }),
+    ),
+    players: playerInfo,
+  };
+};
+
 export default {
   create,
-  join,
+  dealCards,
   getHost,
   getInfo,
-  start,
-  dealCards,
   getPlayers,
+  getState,
+  join,
   setCurrentPlayer,
+  start,
   cardLocations: {
     STOCK_PILE: STOCK_PILE,
     PLAYER_HAND: PLAYER_HAND,
