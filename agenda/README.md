@@ -2,11 +2,11 @@
 
 Team leads please send me a DM on Discord with a status update for the week, and please include your group number!
 
-### Agenda Week 14 (4/28, 5/1)
+### Agenda Week 15 (5/5, 5/8)
 
 - Finish game creation
-  - add cards to game
-  - deal cards
+  - ~~add cards to game~~
+  - ~~deal cards~~
   - let players know game has started
 - Play a card
   - Client: click on a card
@@ -15,6 +15,13 @@ Team leads please send me a DM on Discord with a status update for the week, and
   - Server: Update game state
   - Server: Broadcast relevant game state to users
   - Client: Listening for game state update (socket.on("game-updated:2342"))
+
+### Agenda Week 14 (4/28, 5/1)
+
+- Finish game creation
+  - ~~add cards to game~~
+  - ~~deal cards~~
+  - let players know game has started
 
 ### Agenda Week 13 (4/21, 4/24)
 
