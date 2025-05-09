@@ -1,7 +1,8 @@
 import express from "express";
 import { Request, Response } from "express";
 
-import { Game } from "../db";
+import { Game } from "../../db";
+import { broadcastGameState } from "./broadcast-game-state";
 
 const router = express.Router();
 
@@ -69,7 +70,9 @@ router.post("/:gameId/start", async (request: Request, response: Response) => {
   }
 
   const gameInfo = await Game.getInfo(gameId);
-  if (gameInfo.min_players < gameInfo.player_count) {
+  console.log({ gameInfo });
+
+  if (gameInfo.player_count < gameInfo.min_players) {
     // TODO: Broadcast game update stating "not enough players"
 
     response.status(200).send();
@@ -77,9 +80,7 @@ router.post("/:gameId/start", async (request: Request, response: Response) => {
   }
 
   await Game.start(gameId);
-
-  const gameState = await Game.getState(gameId);
-  console.log({ gameState: JSON.stringify(gameState, null, 2) });
+  await broadcastGameState(gameId, request.app.get("io"));
 
   response.status(200).send();
 });

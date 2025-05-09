@@ -12,6 +12,8 @@ import {
   SET_IS_CURRENT_SQL,
   SETUP_DECK_SQL,
 } from "./sql";
+import { getAvailablGames } from "./get-available-games";
+import { getCurrentGames } from "./get-current-games";
 
 const create = async (
   name: string,
@@ -170,6 +172,8 @@ export default {
   dealCards,
   getHost,
   getInfo,
+  getAvailablGames,
+  getCurrentGames,
   getPlayers,
   getState,
   join,
