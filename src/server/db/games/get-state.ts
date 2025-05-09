@@ -1,4 +1,4 @@
-import { PlayerInfo } from "global";
+import { GameState, PlayerInfo } from "global";
 import { getInfo } from "./get-info";
 import { getPlayers } from "./get-players";
 import db from "../connection";
@@ -26,7 +26,14 @@ ORDER BY game_cards.card_order, game_cards.card_id DESC
 LIMIT $(limit)
 `;
 
-export const getState = async (gameId: number) => {
+const GET_STOCKPILE_COUNT_SQL = `
+SELECT COUNT(*) FROM game_cards
+WHERE game_cards.user_id=$(userId)
+  AND game_cards.game_id=$(gameId)
+  AND pile=${STOCK_PILE}
+`;
+
+export const getState = async (gameId: number): Promise<GameState> => {
   const { name } = await getInfo(gameId);
 
   const players = (await getPlayers(gameId)).map(
@@ -39,7 +46,7 @@ export const getState = async (gameId: number) => {
     }),
   );
 
-  const playerInfo: Record<number, PlayerInfo> = {};
+  const playerInfo: Record<string, PlayerInfo> = {};
 
   for (let playerIndex = 0; playerIndex < players.length; playerIndex++) {
     const player = players[playerIndex];
@@ -58,12 +65,17 @@ export const getState = async (gameId: number) => {
       limit: 1,
       pile: STOCK_PILE,
     });
+    const { count: stockPileCount } = await db.one(GET_STOCKPILE_COUNT_SQL, {
+      gameId,
+      userId,
+    });
 
     try {
       playerInfo[userId] = {
         ...player,
         hand,
         stockPileTop,
+        stockPileCount: parseInt(stockPileCount),
         discardPiles: await Promise.all(
           [DISCARD_1, DISCARD_2, DISCARD_3, DISCARD_4].map((pile) =>
             db.any(GET_CARD_SQL, { gameId, userId, limit: 1, pile }),
