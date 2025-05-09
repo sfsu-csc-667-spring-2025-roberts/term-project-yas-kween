@@ -52,6 +52,7 @@ router.get("/:gameId", async (request: Request, response: Response) => {
   const { id: userId } = request.session.user!;
   const hostId = await Game.getHost(gameId);
 
+  console.log({ gameId, isHost: hostId === userId, hostId, userId });
   response.render("games", { gameId, isHost: hostId === userId });
 });
 

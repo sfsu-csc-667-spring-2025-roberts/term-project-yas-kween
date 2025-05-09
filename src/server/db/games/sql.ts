@@ -31,7 +31,7 @@ RETURNING (
 `;
 
 export const IS_HOST_SQL = `
-SELECT user_id FROM game_users ORDER BY seat LIMIT 1`;
+SELECT user_id FROM game_users WHERE game_id=$1 ORDER BY seat LIMIT 1`;
 
 export const GET_GAME_INFO_SQL = `
 SELECT name, min_players, max_players, password, (
