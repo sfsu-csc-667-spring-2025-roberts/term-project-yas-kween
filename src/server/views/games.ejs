@@ -17,151 +17,42 @@
           <% } %>
 
           <div id="play-area" class="hidden">
-            <!-- Top Player -->
-            <div class="player top">
-              <div class="player-area">
-                <div class="piles">
-                  <div class="card back">Stock</div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="1">
-                      <div class="card-inner">
-                        <div class="card-number">1</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="2">
-                      <div class="card-inner">
-                        <div class="card-number">2</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="3">
-                      <div class="card-inner">
-                        <div class="card-number">3</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="4">
-                      <div class="card-inner">
-                        <div class="card-number">4</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <!-- Center -->
             <div class="center-area">
               <div class="draw-pile">
                 <div class="card back">Deck</div>
               </div>
               <div class="build-piles">
-                <div class="build-pile">
-                  <div class="card number-card" data-number="5">
-                    <div class="card-inner">
-                      <div class="card-number">5</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="build-pile">
-                  <div class="card number-card" data-number="6">
-                    <div class="card-inner">
-                      <div class="card-number">6</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="build-pile">
-                  <div class="card number-card" data-number="7">
-                    <div class="card-inner">
-                      <div class="card-number">7</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="build-pile">
-                  <div class="card number-card" data-number="8">
-                    <div class="card-inner">
-                      <div class="card-number">8</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Left Player -->
-            <div class="player left">
-              <div class="player-area">
-                <div class="piles">
-                  <div class="card back">Stock</div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="9">
-                      <div class="card-inner">
-                        <div class="card-number">9</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="10">
-                      <div class="card-inner">
-                        <div class="card-number">10</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="11">
-                      <div class="card-inner">
-                        <div class="card-number">11</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile">
-                    <div class="card number-card" data-number="12">
-                      <div class="card-inner">
-                        <div class="card-number">12</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Right Player -->
-            <div class="player right">
-              <div class="player-area">
-                <div class="piles">
-                  <div class="card back">Stock</div>
-                  <div class="discard-pile"><div class="card">D1</div></div>
-                  <div class="discard-pile"><div class="card">D2</div></div>
-                  <div class="discard-pile"><div class="card">D3</div></div>
-                  <div class="discard-pile"><div class="card">D4</div></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Bottom Player -->
-            <div class="player bottom">
-              <div class="player-area">
-                <div class="piles">
-                  <div class="card back">Stock</div>
-                  <div class="discard-pile">
-                    <div class="card skipbo">
-                      <div class="card-inner">
-                        <div class="starburst"></div>
-                        <div class="card-number">Skip-Bo</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="discard-pile"><div class="card">D2</div></div>
-                  <div class="discard-pile"><div class="card">D3</div></div>
-                  <div class="discard-pile"><div class="card">D4</div></div>
-                </div>
-              </div>
+                <div class="build-pile"></div>
+                <div class="build-pile"></div>
+                <div class="build-pile"></div>
+                <div class="build-pile"></div>
             </div>
           </div>
         </section>
+
+        <template id="card-template">
+          <div class="card number-card" data-number="">
+            <div class="card-inner">
+              <div class="card-number"></div>
+            </div>
+          </div>
+        </template>
+
+        <template id="player-template">
+          <div class="player top">
+            <div class="player-area">
+              <div class="piles">
+                <div class="stock-pile"></div>
+                <div class="discard-pile"></div>
+                <div class="discard-pile"></div>
+                <div class="discard-pile"></div>
+                <div class="discard-pile"></div>
+              </div>
+            </div>
+          </div>
+        </template>
+
         <%- include('shared/chat') %>
       </div>
     </div>
