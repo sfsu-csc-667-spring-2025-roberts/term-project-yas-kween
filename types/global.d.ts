@@ -47,6 +47,13 @@ export type PlayerInfo = Player & {
   discardPiles: Card[][];
 };
 
+export type GetGameInfoResponse = Pick<
+  GameInfo,
+  "name" | "password" | "min_players" | "max_players"
+> & {
+  player_count: number;
+};
+
 declare module "express-session" {
   interface SessionData {
     user: User;

@@ -36,7 +36,6 @@ router.post("/join/:gameId", async (request: Request, response: Response) => {
 
   try {
     const playerCount = await Game.join(userId, parseInt(gameId), password);
-    console.log({ playerCount });
 
     response.redirect(`/games/${gameId}`);
   } catch (error) {
@@ -53,7 +52,6 @@ router.get("/:gameId", async (request: Request, response: Response) => {
   const { id: userId } = request.session.user!;
   const hostId = await Game.getHost(gameId);
 
-  console.log({ gameId, isHost: hostId === userId, hostId, userId });
   response.render("games", { gameId, isHost: hostId === userId });
 });
 
@@ -70,7 +68,6 @@ router.post("/:gameId/start", async (request: Request, response: Response) => {
   }
 
   const gameInfo = await Game.getInfo(gameId);
-  console.log({ gameInfo });
 
   if (gameInfo.player_count < gameInfo.min_players) {
     // TODO: Broadcast game update stating "not enough players"
