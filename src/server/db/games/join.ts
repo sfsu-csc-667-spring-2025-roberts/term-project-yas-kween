@@ -1,13 +1,6 @@
-export const CREATE_SQL = `
-INSERT INTO games (name, min_players, max_players, password) 
-VALUES ($1, $2, $3, $4) 
-RETURNING id`;
+import db from "../connection";
 
-export const ADD_PLAYER = `
-INSERT INTO game_users (game_id, user_id) 
-VALUES ($1, $2)`;
-
-export const CONDITIONALLY_JOIN_SQL = `
+const SQL = `
 INSERT INTO game_users (game_id, user_id)
 SELECT $(gameId), $(userId) 
 WHERE NOT EXISTS (
@@ -30,5 +23,16 @@ RETURNING (
 )
 `;
 
-export const IS_HOST_SQL = `
-SELECT user_id FROM game_users WHERE game_id=$1 ORDER BY seat LIMIT 1`;
+export const join = async (
+  userId: number,
+  gameId: number,
+  password: string = "",
+) => {
+  const { playerCount } = await db.one<{ playerCount: number }>(SQL, {
+    gameId,
+    userId,
+    password,
+  });
+
+  return playerCount;
+};
