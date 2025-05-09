@@ -13,10 +13,10 @@
       <div id="content">
         <section id="game-table">
           <% if(isHost) { %> 
-          <button id="start-game-button">Start Game</button>
+          <button id="start-game-button" class="shown">Start Game</button>
           <% } %>
 
-          <div class="table">
+          <div id="play-area" class="hidden">
             <!-- Top Player -->
             <div class="player top">
               <div class="player-area">

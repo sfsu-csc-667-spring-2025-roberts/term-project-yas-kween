@@ -60,6 +60,11 @@ export type GameState = {
   players: Record<string, PlayerInfo>;
 };
 
+export type PlayerGameState = {
+  currentPlayer: PlayerInfo;
+  players: Record<string, OtherPlayerInfo>;
+};
+
 export type GetGameInfoResponse = Pick<
   GameInfo,
   "name" | "password" | "min_players" | "max_players"

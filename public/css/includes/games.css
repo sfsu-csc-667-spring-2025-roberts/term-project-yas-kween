@@ -14,8 +14,15 @@ body#games-body #container #content {
   padding: 5px 10px;
 }
 
-.table {
-  visibility: hidden;
+.hidden {
+  display: none;
+}
+
+.shown {
+  display: block;
+}
+
+#play-area {
   position: relative;
   width: 100%;
   height: 100%;
