@@ -42,7 +42,7 @@ export type Player = {
 };
 
 export type PlayerInfo = Player & {
-  hand: Card[];
+  hand?: Card[];
   stockPileTop: Card;
   discardPiles: Card[][];
   stockPileCount: number;
@@ -51,6 +51,7 @@ export type PlayerInfo = Player & {
 export type OtherPlayerInfo = Player & {
   handCount: number;
   stockPileCount: number;
+  discardPiles: Card[][];
   stockPileTop: Card;
 };
 
@@ -63,6 +64,7 @@ export type GameState = {
 export type PlayerGameState = {
   currentPlayer: PlayerInfo;
   players: Record<string, OtherPlayerInfo>;
+  buildPiles: Card[];
 };
 
 export type GetGameInfoResponse = Pick<

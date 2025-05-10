@@ -1,5 +1,4 @@
-import express from "express";
-import { Request, Response } from "express";
+import express, { Request, Response } from "express";
 import { getPlayerGames } from "./get-player-games";
 
 const router = express.Router();

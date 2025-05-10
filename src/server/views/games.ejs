@@ -12,38 +12,54 @@
 
       <div id="content">
         <section id="game-table">
-          <% if(isHost) { %> 
-          <button id="start-game-button" class="shown">Start Game</button>
-          <% } %>
-
-          <div id="play-area" class="hidden">
-            <!-- Center -->
-            <div class="center-area">
-              <div class="draw-pile">
-                <div class="card back">Deck</div>
-              </div>
-              <div class="build-piles">
-                <div class="build-pile"></div>
-                <div class="build-pile"></div>
-                <div class="build-pile"></div>
-                <div class="build-pile"></div>
-            </div>
+          <div id="game-table-waiting-overlay">
+            <% if(isHost) { %>
+            <button id="start-game-button" class="shown">Start Game</button>
+            <% } else { %>
+            <strong>Waiting for host...</strong>
+            <% } %>
           </div>
+
+          <div id="play-area"></div>
         </section>
 
-        <template id="card-template">
-          <div class="card number-card" data-number="">
+        <template id="draw-pile-area-template">
+          <div class="center-area">
+            <div class="draw-pile">
+              <div class="card back">Deck</div>
+            </div>
+            <div class="build-piles">
+              <div class="build-pile"></div>
+              <div class="build-pile"></div>
+              <div class="build-pile"></div>
+              <div class="build-pile"></div>
+            </div>
+          </div>
+        </template>
+
+        <template id="card-number-template">
+          <div class="card number-card" data-number="" data-card-id="">
             <div class="card-inner">
               <div class="card-number"></div>
             </div>
           </div>
         </template>
 
+        <template id="card-skipbo-template">
+          <div class="card skipbo" data-card-id="">
+            <div class="card-inner">
+              <div class="starburst"></div>
+              <div class="card-number">Skip-Bo</div>
+            </div>
+          </div>
+        </template>
+
         <template id="player-template">
-          <div class="player top">
+          <div class="player">
             <div class="player-area">
+              <div class="hand"><div class="hand-count"></div></div>
               <div class="piles">
-                <div class="stock-pile"></div>
+                <div class="stock-pile"><div class="count"></div></div>
                 <div class="discard-pile"></div>
                 <div class="discard-pile"></div>
                 <div class="discard-pile"></div>

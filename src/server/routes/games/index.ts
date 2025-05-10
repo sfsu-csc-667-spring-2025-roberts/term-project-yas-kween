@@ -1,5 +1,4 @@
-import express from "express";
-import { Request, Response } from "express";
+import express, { Request, Response } from "express";
 
 import { Game } from "../../db";
 import { broadcastGameState } from "./broadcast-game-state";

@@ -13,7 +13,7 @@
     "db:rollback": "ts-node node_modules/node-pg-migrate/bin/node-pg-migrate.js down -j ts"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --plugin=prettier-plugin-ejs --write --ignore-unknown"
   },
   "keywords": [],
   "author": "",
@@ -37,6 +37,8 @@
     "livereload": "^0.9.3",
     "nodemon": "^3.1.9",
     "prettier": "^3.5.3",
+    "prettier-plugin-ejs": "^1.0.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },

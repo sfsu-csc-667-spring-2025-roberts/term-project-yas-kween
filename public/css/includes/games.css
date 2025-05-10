@@ -14,12 +14,25 @@ body#games-body #container #content {
   padding: 5px 10px;
 }
 
-.hidden {
-  display: none;
+section#game-table {
+  position: relative;
 }
 
-.shown {
-  display: block;
+section#game-table #game-table-waiting-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border: 5px solid #222;
+  border-radius: 15px;
+  text-align: center;
+}
+
+section#game-table #game-table-waiting-overlay strong {
+  color: white;
 }
 
 #play-area {
@@ -79,6 +92,7 @@ body#games-body #container #content {
 .player.bottom {
   bottom: 5px;
   left: 50%;
+  width: 100%;
   transform: translateX(-50%);
 }
 
@@ -102,6 +116,29 @@ body#games-body #container #content {
   gap: 10px;
 }
 
+.player-area .hand {
+  position: relative;
+}
+
+.player-area .hand .hand-count,
+.player-area .stock-pile .count {
+  position: absolute;
+  display: none;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid gray;
+  border-radius: 3px;
+  text-align: center;
+  z-index: 500;
+}
+
+.player-area .hand:hover .hand-count,
+.player-area .stock-pile:hover .count {
+  display: block;
+}
+
 .player.left .player-area {
   transform: rotate(90deg);
 }
@@ -110,9 +147,10 @@ body#games-body #container #content {
   transform: rotate(-90deg);
 }
 
-.stockpile {
+.stock-pile {
   width: 80px;
   height: 120px;
+  position: relative;
 }
 
 .piles {
@@ -136,6 +174,11 @@ body#games-body #container #content {
   );
   color: white;
   font-size: 20px;
+}
+
+.card.blank {
+  border: 2px dotted gray;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .card {
@@ -181,7 +224,7 @@ body#games-body #container #content {
 .skipbo {
   background: linear-gradient(135deg, #ffcc00, #ff6600);
   color: white;
-  font-size: 24px;
+  font-size: 18px;
   text-transform: uppercase;
   position: relative;
   overflow: hidden;

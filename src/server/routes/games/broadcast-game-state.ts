@@ -1,8 +1,12 @@
+import { Card, GameState, OtherPlayerInfo, PlayerInfo } from "global";
 import { Server } from "socket.io";
 import { Game } from "../../db";
-import { GameState, OtherPlayerInfo, PlayerInfo } from "global";
 
-const createPlayerState = (game: GameState, currentPlayer: PlayerInfo) => {
+const createPlayerState = (
+  game: GameState,
+  currentPlayer: PlayerInfo,
+  buildPiles: Card[],
+) => {
   const players = Object.entries(game.players)
     .filter(([playerId]) => {
       return parseInt(playerId) !== currentPlayer.id;
@@ -20,7 +24,8 @@ const createPlayerState = (game: GameState, currentPlayer: PlayerInfo) => {
 
         acc[playerId] = {
           ...rest,
-          handCount: hand.length,
+          handCount: hand?.length ?? 0,
+          discardPiles,
           stockPileCount,
           stockPileTop,
           isCurrent,
@@ -34,6 +39,7 @@ const createPlayerState = (game: GameState, currentPlayer: PlayerInfo) => {
   return {
     players,
     currentPlayer,
+    buildPiles,
   };
 };
 
@@ -43,7 +49,7 @@ export const broadcastGameState = async (gameId: number, io: Server) => {
   Object.entries(gameState.players).forEach(([playerId, playerInfo]) => {
     io.to(playerId).emit(
       `game:${gameId}:updated`,
-      createPlayerState(gameState, playerInfo),
+      createPlayerState(gameState, playerInfo, gameState.buildPiles),
     );
   });
 };
