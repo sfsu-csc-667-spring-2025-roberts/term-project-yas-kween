@@ -118,6 +118,17 @@ section#game-table #game-table-waiting-overlay strong {
 
 .player-area .hand {
   position: relative;
+  display: flex;
+  flex-direction: row;
+}
+
+.player-area .hand .card {
+  z-index: 1;
+  margin-left: -25px;
+}
+
+.player-area .hand .card:first-child {
+  margin-left: 0;
 }
 
 .player-area .hand .hand-count,

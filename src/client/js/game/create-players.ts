@@ -105,6 +105,14 @@ export const currentPlayer = ({
     discardPiles,
   );
 
+  const handElements = hand?.map((card: Card) => {
+    return createCard(card);
+  });
+
+  if (handElements) {
+    container.querySelector<HTMLDivElement>(".hand")?.append(...handElements);
+  }
+
   return container;
 };
 
