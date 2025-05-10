@@ -43,6 +43,23 @@ const createPlayerState = (
   };
 };
 
+export const broadcastGameStateToPlayer = async (
+  gameId: number,
+  playerId: string,
+  io: Server,
+) => {
+  const gameState = await Game.getState(gameId);
+
+  io.to(playerId).emit(
+    `game:${gameId}:updated`,
+    createPlayerState(
+      gameState,
+      gameState.players[playerId],
+      gameState.buildPiles,
+    ),
+  );
+};
+
 export const broadcastGameState = async (gameId: number, io: Server) => {
   const gameState = await Game.getState(gameId);
 

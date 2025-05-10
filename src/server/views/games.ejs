@@ -12,15 +12,12 @@
 
       <div id="content">
         <section id="game-table">
-          <div id="game-table-waiting-overlay">
-            <% if(isHost) { %>
-            <button id="start-game-button" class="shown">Start Game</button>
-            <% } else { %>
-            <strong>Waiting for host...</strong>
-            <% } %>
-          </div>
-
+          <% if(!hasStarted) { include('games/waiting-to-start-overlay'); } %>
+          <% if(!hasStarted) { %>
           <div id="play-area"></div>
+          <% } else { %>
+          <div id="play-area" class="started"></div>
+          <% } %>
         </section>
 
         <template id="draw-pile-area-template">

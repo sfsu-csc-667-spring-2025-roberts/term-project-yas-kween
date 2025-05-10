@@ -1,17 +1,11 @@
 import { PlayerGameState } from "global";
 import { createDrawArea } from "./game/create-draw-area";
 import { currentPlayer, otherPlayer } from "./game/create-players";
+import UI from "./game/elements";
 import { socket } from "./sockets";
 import { getGameId } from "./utils";
 
-const startGameButton =
-  document.querySelector<HTMLButtonElement>("#start-game-button");
-const overlay = document.querySelector<HTMLDivElement>(
-  "#game-table-waiting-overlay",
-);
-const playArea = document.querySelector<HTMLDivElement>("#play-area")!;
-
-startGameButton?.addEventListener("click", (event) => {
+UI.START_GAME_BUTTON?.addEventListener("click", (event) => {
   event.preventDefault();
 
   fetch(`/games/${getGameId()}/start`, {
@@ -21,9 +15,9 @@ startGameButton?.addEventListener("click", (event) => {
 
 socket.on(`game:${getGameId()}:updated`, (gameState: PlayerGameState) => {
   console.log(gameState);
-  overlay?.parentElement?.removeChild(overlay);
+  UI.OVERLAY?.parentElement?.removeChild(UI.OVERLAY);
 
-  playArea.replaceChildren(
+  UI.PLAY_AREA.replaceChildren(
     createDrawArea(gameState.buildPiles),
     currentPlayer(gameState.currentPlayer),
     ...Object.values(gameState.players).map((player) =>
@@ -31,3 +25,7 @@ socket.on(`game:${getGameId()}:updated`, (gameState: PlayerGameState) => {
     ),
   );
 });
+
+if (UI.PLAY_AREA.classList.contains("started")) {
+  fetch(`/games/${getGameId()}/ping`, { method: "post" });
+}
