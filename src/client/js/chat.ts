@@ -1,12 +1,7 @@
 import { ChatMessage } from "global";
+import Ui from "./elements";
 import { socket } from "./sockets";
 import { cloneTemplate, getGameId } from "./utils";
-
-const messageContainer =
-  document.querySelector<HTMLDivElement>("#chat #messages");
-
-const chatForm = document.querySelector<HTMLFormElement>("#chat form");
-const chatInput = document.querySelector<HTMLInputElement>("#chat input");
 
 socket.on(
   `chat:message:${getGameId()}`,
@@ -24,24 +19,24 @@ socket.on(
       "div span:last-of-type",
     )!.innerText = new Date(timestamp).toLocaleTimeString();
 
-    messageContainer!.appendChild(container);
+    Ui.CHAT_MESSAGES.appendChild(container);
 
-    messageContainer?.scrollTo({
-      top: messageContainer.scrollHeight,
+    Ui.CHAT_MESSAGES?.scrollTo({
+      top: Ui.CHAT_MESSAGES.scrollHeight,
       behavior: "smooth",
     });
   },
 );
 
-chatForm?.addEventListener("submit", (event) => {
+Ui.CHAT_FORM.addEventListener("submit", (event) => {
   event.preventDefault();
 
-  const message = chatInput?.value;
+  const message = Ui.CHAT_INPUT.value;
   if (!message) {
     return;
   }
 
-  chatInput.value = "";
+  Ui.CHAT_INPUT.value = "";
 
   fetch(`/chat/${getGameId()}`, {
     method: "post",

@@ -41,8 +41,6 @@ const initSeatOrder = (gameState: PlayerGameState) => {
   for (let i = 0; i < map.length; i++) {
     playerPositions[inOrder[i].playerId] = map[i];
   }
-
-  console.log({ playerPositions });
 };
 
 const getPlayerPosition = (playerId: number, gameState: PlayerGameState) => {

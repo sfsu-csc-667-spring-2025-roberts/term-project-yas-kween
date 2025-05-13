@@ -1,5 +1,6 @@
 import { create } from "./create";
 import { dealCards } from "./deal-cards";
+import { drawCard } from "./draw-card";
 import { getAvailablGames } from "./get-available-games";
 import { getCurrentGames } from "./get-current-games";
 import { getCurrentPlayer } from "./get-current-player";
@@ -17,6 +18,7 @@ export * as cardLocations from "./constants";
 export default {
   create,
   dealCards,
+  drawCard,
   getHost,
   getInfo,
   getAvailablGames,

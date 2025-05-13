@@ -20,6 +20,10 @@ section#chat #messages .message {
   margin-bottom: 5px;
 }
 
+section#chat #messages .message.error {
+  color: red;
+}
+
 section#chat #messages .message img {
   margin-right: 10px;
   height: 20px;

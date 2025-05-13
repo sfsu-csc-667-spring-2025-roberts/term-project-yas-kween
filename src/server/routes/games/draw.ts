@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Game } from "../../db";
-import { PLAYER_HAND } from "../../db/games/constants";
 import { broadcastGameState } from "./broadcast-game-state";
 import { getIo } from "./get-io";
 
@@ -13,11 +12,12 @@ export const draw = async (request: Request, response: Response) => {
   // 2. make sure they havent drawn a card this turn.
   const { user_id: currentUserId, has_drawn } =
     await Game.getCurrentPlayer(gameId);
+
   if (currentUserId !== userId || has_drawn) {
     const io = getIo(request);
 
-    io.to(`${currentUserId}`).emit(`game:${gameId}:error-message`, {
-      error: "It is not your turn.",
+    io.to(`${currentUserId}`).emit(`game:${gameId}:error`, {
+      error: "It is not your turn to draw.",
     });
 
     response.status(400).send();
@@ -25,7 +25,7 @@ export const draw = async (request: Request, response: Response) => {
   }
 
   // 3. assign the next card to the players hand
-  await Game.dealCards(userId, parseInt(gameId), 1, PLAYER_HAND);
+  await Game.drawCard(userId, gameId);
 
   // 4. broadcast game state
   await broadcastGameState(parseInt(gameId), getIo(request));

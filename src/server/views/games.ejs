@@ -12,8 +12,8 @@
 
       <div id="content">
         <section id="game-table">
-          <% if(!hasStarted) { include('games/waiting-to-start-overlay'); } %>
-          <% if(!hasStarted) { %>
+          <%- include('games/waiting-to-start-overlay') %> <% if(!hasStarted) {
+          %>
           <div id="play-area"></div>
           <% } else { %>
           <div id="play-area" class="started"></div>

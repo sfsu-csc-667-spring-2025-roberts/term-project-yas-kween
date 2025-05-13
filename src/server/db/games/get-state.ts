@@ -1,6 +1,4 @@
 import { GameState, PlayerInfo } from "global";
-import { getInfo } from "./get-info";
-import { getPlayers } from "./get-players";
 import db from "../connection";
 import {
   DISCARD_1,
@@ -14,6 +12,8 @@ import {
   STOCK_PILE,
   WEST_PILE,
 } from "./constants";
+import { getInfo } from "./get-info";
+import { getPlayers } from "./get-players";
 
 const GET_CARD_SQL = `
 SELECT cards.*, game_cards.card_order 
@@ -56,7 +56,7 @@ export const getState = async (gameId: number): Promise<GameState> => {
     const hand = await db.manyOrNone(GET_CARD_SQL, {
       gameId,
       userId,
-      limit: 5,
+      limit: 6,
       pile: PLAYER_HAND,
     });
     const stockPileTop = await db.one(GET_CARD_SQL, {
