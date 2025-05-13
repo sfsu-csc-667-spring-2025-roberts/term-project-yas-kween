@@ -2,6 +2,7 @@ import { create } from "./create";
 import { dealCards } from "./deal-cards";
 import { getAvailablGames } from "./get-available-games";
 import { getCurrentGames } from "./get-current-games";
+import { getCurrentPlayer } from "./get-current-player";
 import { getHost } from "./get-host";
 import { getInfo } from "./get-info";
 import { getPlayers } from "./get-players";
@@ -20,6 +21,7 @@ export default {
   getInfo,
   getAvailablGames,
   getCurrentGames,
+  getCurrentPlayer,
   getPlayers,
   getState,
   hasStarted,
