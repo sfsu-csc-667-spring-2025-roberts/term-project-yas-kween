@@ -46,6 +46,7 @@ export type PlayerInfo = Player & {
   stockPileTop: Card;
   discardPiles: Card[][];
   stockPileCount: number;
+  isCurrent?: boolean;
 };
 
 export type OtherPlayerInfo = Player & {

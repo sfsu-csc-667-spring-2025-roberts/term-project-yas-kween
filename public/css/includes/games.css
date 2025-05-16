@@ -192,6 +192,14 @@ section#game-table #game-table-waiting-overlay strong {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
+.card.selected {
+  margin-top: -20px;
+}
+
+.discard-area {
+  display: flex;
+}
+
 .card {
   width: var(--card-width);
   height: var(--card-height);

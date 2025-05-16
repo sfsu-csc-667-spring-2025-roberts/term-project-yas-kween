@@ -1,5 +1,5 @@
 import { Card, OtherPlayerInfo, PlayerGameState, PlayerInfo } from "global";
-import { cloneTemplate } from "../utils";
+import { cloneTemplate, getGameId } from "../utils";
 import { createCard } from "./create-card";
 
 const playerPositions: Record<string, string> = {};
@@ -103,12 +103,60 @@ export const currentPlayer = ({
     discardPiles,
   );
 
+  const handArea = container.querySelector<HTMLDivElement>(".hand");
+
   const handElements = hand?.map((card: Card) => {
     return createCard(card);
   });
 
-  if (handElements) {
-    container.querySelector<HTMLDivElement>(".hand")?.append(...handElements);
+  if (handElements && handArea) {
+    handArea.append(...handElements);
+  }
+
+  handArea?.addEventListener("click", (event) => {
+    if (event.target == null || !(event.target instanceof HTMLElement)) {
+      return;
+    }
+
+    const target = event.target.closest<HTMLDivElement>("[data-card-id]");
+    if (target) {
+      handArea
+        .querySelectorAll<HTMLDivElement>(".card")
+        .forEach((el) => el.classList.remove("selected"));
+
+      target.classList.add("selected");
+    }
+  });
+
+  const discardArea = container.querySelector<HTMLDivElement>(".discard-area");
+  if (discardArea) {
+    discardArea.addEventListener("click", (event) => {
+      if (event.target == null || !(event.target instanceof HTMLElement)) {
+        return;
+      }
+
+      const target = event.target.closest<HTMLDivElement>(".discard-pile");
+      const selectedCards =
+        document.querySelectorAll<HTMLDivElement>(".card.selected");
+
+      if (target && selectedCards.length == 1) {
+        // tell hte server player is playing something
+        const pileId = target.dataset.discardPile;
+        const selectedCardId = selectedCards[0].dataset.cardId;
+
+        if (pileId === undefined || selectedCardId === undefined) {
+          return;
+        }
+
+        fetch(`/games/${getGameId()}/discard`, {
+          method: "post",
+          body: JSON.stringify({
+            pileId: parseInt(pileId),
+            selectedCardId: parseInt(selectedCardId),
+          }),
+        });
+      }
+    });
   }
 
   return container;

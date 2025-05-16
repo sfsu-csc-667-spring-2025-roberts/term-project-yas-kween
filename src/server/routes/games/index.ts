@@ -1,6 +1,7 @@
 import express from "express";
 
 import { create } from "./create";
+import { discard } from "./discard";
 import { draw } from "./draw";
 import { get } from "./get";
 import { join } from "./join";
@@ -15,5 +16,6 @@ router.get("/:gameId", get);
 router.post("/:gameId/start", start);
 router.post("/:gameId/ping", ping);
 router.post("/:gameId/draw", draw);
+router.post("/:gameId/discard", discard);
 
 export default router;
