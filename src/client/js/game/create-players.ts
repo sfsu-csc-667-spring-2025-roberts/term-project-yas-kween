@@ -1,6 +1,8 @@
 import { Card, OtherPlayerInfo, PlayerGameState, PlayerInfo } from "global";
 import { cloneTemplate, getGameId } from "../utils";
 import { createCard } from "./create-card";
+import { post } from "./fetch-wrapper";
+import { getSelectedCardId } from "./get-selected-card-id";
 
 const playerPositions: Record<string, string> = {};
 
@@ -136,24 +138,13 @@ export const currentPlayer = ({
       }
 
       const target = event.target.closest<HTMLDivElement>(".discard-pile");
-      const selectedCards =
-        document.querySelectorAll<HTMLDivElement>(".card.selected");
+      const selectedCardId = getSelectedCardId();
+      const pileId = target?.dataset.discardPile;
 
-      if (target && selectedCards.length == 1) {
-        // tell hte server player is playing something
-        const pileId = target.dataset.discardPile;
-        const selectedCardId = selectedCards[0].dataset.cardId;
-
-        if (pileId === undefined || selectedCardId === undefined) {
-          return;
-        }
-
-        fetch(`/games/${getGameId()}/discard`, {
-          method: "post",
-          body: JSON.stringify({
-            pileId: parseInt(pileId),
-            selectedCardId: parseInt(selectedCardId),
-          }),
+      if (pileId && selectedCardId) {
+        post(`/games/${getGameId()}/discard`, {
+          pileId: parseInt(pileId),
+          selectedCardId: parseInt(selectedCardId),
         });
       }
     });

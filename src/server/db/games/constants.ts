@@ -10,3 +10,5 @@ export const NORTH_PILE = 1;
 export const EAST_PILE = 2;
 export const SOUTH_PILE = 3;
 export const WEST_PILE = 4;
+
+export const SHUFFLE_ME = -42;

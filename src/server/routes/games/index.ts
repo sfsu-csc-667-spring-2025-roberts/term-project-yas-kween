@@ -6,6 +6,7 @@ import { draw } from "./draw";
 import { get } from "./get";
 import { join } from "./join";
 import { ping } from "./ping";
+import { play } from "./play";
 import { start } from "./start";
 
 const router = express.Router();
@@ -17,5 +18,6 @@ router.post("/:gameId/start", start);
 router.post("/:gameId/ping", ping);
 router.post("/:gameId/draw", draw);
 router.post("/:gameId/discard", discard);
+router.post("/:gameId/play", play);
 
 export default router;

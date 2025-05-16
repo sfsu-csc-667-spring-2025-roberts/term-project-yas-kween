@@ -1,6 +1,8 @@
 import { Card } from "global";
 import { cloneTemplate, getGameId } from "../utils";
 import { createCard } from "./create-card";
+import { post } from "./fetch-wrapper";
+import { getSelectedCardId } from "./get-selected-card-id";
 
 const clickListener = () => {
   fetch(`/games/${getGameId()}/draw`, { method: "post" });
@@ -23,7 +25,23 @@ export const createDrawArea = (buildPiles: Card[]) => {
   area
     .querySelectorAll<HTMLDivElement>(".build-pile")
     .forEach((pileDiv, index) => {
-      pileDiv.appendChild(createCard(buildPiles[index]));
+      const card = createCard(buildPiles[index]);
+      card.addEventListener("click", (event) => {
+        const buildPile = (event.target as HTMLElement).closest(".build-pile");
+
+        const pileId = buildPile
+          ? (buildPile as HTMLElement).dataset.pileId
+          : undefined;
+        const selectedCardId = getSelectedCardId();
+
+        if (!pileId || !selectedCardId) {
+          return;
+        }
+
+        post(`/games/${getGameId}/play`, { pileId, selectedCardId });
+      });
+
+      pileDiv.appendChild(card);
     });
 
   return area;
